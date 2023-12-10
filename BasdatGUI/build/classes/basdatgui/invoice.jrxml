@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="invoice" language="groovy" pageWidth="297" pageHeight="421" whenNoDataType="BlankPage" columnWidth="257" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f8b474eb-ca7e-4888-85db-af513f803811">
+	<property name="ireport.zoom" value="1.6105100000000059"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="searchFor" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+pembeli AS nama_customer,
+Tanggal_dokumen_kontrak AS tanggal_pemesanan,
+nama_produk,
+id_produk,
+tanggal_produksi,
+tanggal_kadaluwarsa,
+jumlah_kirim AS jumlah_pesanan,
+harga_per_kg,
+(jumlah_kirim * harga_per_kg) AS total
+FROM produk_keluar
+WHERE id_produk = $P{searchFor};]]>
+	</queryString>
+	<field name="nama_customer" class="java.lang.String"/>
+	<field name="tanggal_pemesanan" class="java.sql.Date"/>
+	<field name="nama_produk" class="java.lang.String"/>
+	<field name="id_produk" class="java.lang.String"/>
+	<field name="tanggal_produksi" class="java.sql.Date"/>
+	<field name="tanggal_kadaluwarsa" class="java.sql.Date"/>
+	<field name="jumlah_pesanan" class="java.lang.Integer"/>
+	<field name="harga_per_kg" class="java.math.BigDecimal"/>
+	<field name="total" class="java.math.BigDecimal"/>
+	<group name="id_produk">
+		<groupExpression><![CDATA[$F{id_produk}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="67" splitType="Stretch">
+			<staticText>
+				<reportElement x="75" y="0" width="109" height="32" uuid="1ee712a7-78c2-440a-81dd-591aadbd7a45"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INVOICE]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="75" y="32" width="109" height="12" uuid="f1493018-de95-48d8-b7b7-a583e104ca03"/>
+				<textElement textAlignment="Center">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement x="89" y="5" width="70" height="11" uuid="784b722e-349d-499c-a19d-e62a6d0634df"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_customer}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="89" y="16" width="70" height="11" uuid="24b681a2-a7c3-4f6a-8b19-21c9957c2c97"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tanggal_pemesanan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="5" width="88" height="11" uuid="fb0dd7e4-a8a2-49cf-8335-7b669a0a0416"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Customer		:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="88" height="11" uuid="2cc2efb2-307c-4666-9910-71fcc91ec75a"/>
+				<textElement verticalAlignment="Top">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tanggal Pemesanan	:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="146" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="15" width="257" height="16" uuid="777ce4a8-8ce7-4b35-bf2d-acbd94878c30"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nama_produk}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="31" width="100" height="14" uuid="0c71af05-e8f9-4e28-9494-0b9a32792ce6"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{id_produk}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="56" width="100" height="11" uuid="da1c388b-5656-4537-9a63-b33b239274ab"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tanggal Produksi]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="67" width="100" height="11" uuid="05a56d95-9339-45e9-9a1c-f77a6dbcde97"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Tanggal Kadaluarsa]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="5" width="257" height="1" uuid="2ea48223-1979-4212-9f0f-22d68f21568d"/>
+			</line>
+			<line>
+				<reportElement x="0" y="138" width="257" height="1" uuid="2c43f1fd-8559-4c37-a0ff-2486af34656d"/>
+			</line>
+			<staticText>
+				<reportElement x="1" y="105" width="100" height="11" uuid="b6e21929-6c25-4ec1-988e-4110968e45d3"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Harga/kg]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="94" width="100" height="11" uuid="98e00697-ee13-4d15-a468-08bd632524ba"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Jumlah Pesanan]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="157" y="56" width="100" height="11" uuid="827c9dbc-45cb-4667-a483-50898519e1ca"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tanggal_produksi}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="157" y="67" width="100" height="11" uuid="ff8f0094-ad05-4551-9100-0a3796969672"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tanggal_kadaluwarsa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="157" y="94" width="100" height="11" uuid="038a1b70-0d61-4d74-99bf-9a67599917df"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{jumlah_pesanan}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤#,##0.00">
+				<reportElement x="157" y="105" width="100" height="11" uuid="6cb779e4-86e3-4ed4-967c-85b5cb7494fa"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{harga_per_kg}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="116" width="100" height="11" uuid="8168c5a8-839d-451f-b154-38079a528514"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<textField pattern="¤#,##0.00">
+				<reportElement x="157" y="116" width="100" height="11" uuid="78703373-af03-48ee-83b9-627f68440488"/>
+				<textElement verticalAlignment="Top">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{total}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<columnFooter>
+		<band height="70" splitType="Stretch">
+			<staticText>
+				<reportElement x="156" y="17" width="95" height="12" uuid="d636e80f-4e54-4554-bd6d-774dbb19b695"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[PT. KEINASTHA FARMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="156" y="58" width="95" height="12" uuid="703c4d91-6644-44e5-8309-918fed9d05d5"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<text><![CDATA[Ardian Sjaf Indra]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="58" splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>
